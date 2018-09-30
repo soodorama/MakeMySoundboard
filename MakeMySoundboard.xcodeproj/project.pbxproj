@@ -103,12 +103,12 @@
 		8E34A20A215DEFD60068F878 /* MakeMySoundboard */ = {
 			isa = PBXGroup;
 			children = (
-				8E34A20B215DEFD60068F878 /* AppDelegate.swift */,
 				8E34A20D215DEFD60068F878 /* MainVC.swift */,
-				8E34A20F215DEFD60068F878 /* Main.storyboard */,
-				8E34A23E215DF1820068F878 /* SoundCell.swift */,
 				8E34A23C215DF08A0068F878 /* AddDeleteVC.swift */,
+				8E34A23E215DF1820068F878 /* SoundCell.swift */,
+				8E34A20F215DEFD60068F878 /* Main.storyboard */,
 				8E34A215215DEFD80068F878 /* Assets.xcassets */,
+				8E34A20B215DEFD60068F878 /* AppDelegate.swift */,
 				8E34A217215DEFD80068F878 /* LaunchScreen.storyboard */,
 				8E34A21A215DEFD80068F878 /* Info.plist */,
 				8E34A212215DEFD60068F878 /* MakeMySoundboard.xcdatamodeld */,
