@@ -26,9 +26,9 @@ class AddDeleteVC: UIViewController {
     var indexPath: IndexPath?
     var filename = ""
     
-//    var player: AVAudioPlayer?
     var recorder: AVAudioRecorder?
     var session = AVAudioSession.sharedInstance()
+    var player: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,15 +70,79 @@ class AddDeleteVC: UIViewController {
     @IBAction func playBtnPressed(_ sender: UIButton) {
         print("Play")
         // should be gray if no audio, else clover green
-    
-        //        print("Play")
+
         
-//        let str = audioQueue.dequeue()
-//        let url = MicVC.getAudioURL(urlStr: str!)
+        
+    }
+    
+    @IBAction func recordBtnPressed(_ sender: UIButton) {
+        print("Record")
+        // change to delete if it there is already audio
+        record()
+        
+    }
+    
+    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
+        delegate?.cancelPressed()
+    }
+    
+    @IBAction func savePressed(_ sender: UIBarButtonItem) {
+        let filename = titleField.text
+        delegate?.savePressed(filename: filename!, indexPath: indexPath)
+    }
+    
+    func finishRecording(success: Bool) {
+        recorder?.stop()
+        recorder = nil
+
+        if success {
+            //            print("Finished Recording")
+        } else {
+            let ac = UIAlertController(title: "Record failed", message: "There was a problem recording your audio; please try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+    
+}
+
+extension AddDeleteVC: AVAudioRecorderDelegate {
+    func record() {
+        print("Record")
+        
+        if let rec = recorder {
+            recorder!.stop()
+        }
+        
+        //        let audioURL = MainVC.getAudioURL(urlStr: urlStr)
+        //        print(audioURL.absoluteString)
+        
+        do {
+            //            self.recorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            self.recorder?.delegate = self
+            self.recorder?.prepareToRecord()
+            self.recorder?.record()
+        } catch {
+            self.finishRecording(success: false)
+        }
+    }
+    
+    func play() {
+        
+        print("Play")
+//
+////        let str = audioQueue.dequeue()
+////        let url = AddDeleteVC.getAudioURL(urlStr: str!)
 //
 //        do {
-//            globalPlayer = try AVAudioPlayer(contentsOf: url)
-//            globalPlayer?.play()
+//            player = try AVAudioPlayer(contentsOf: url)
+////            player.play()
 //            //            print("Playing")
 //            do {
 //                try FileManager.default.removeItem(at: url)
@@ -92,61 +156,5 @@ class AddDeleteVC: UIViewController {
 //            ac.addAction(UIAlertAction(title: "OK", style: .default))
 //            //            present(ac, animated: true)
 //        }
-        
-        
     }
-    
-    @IBAction func recordBtnPressed(_ sender: UIButton) {
-        print("Record")
-        // change to delete if it there is already audio
-        
-        print("Record")
-        
-        if let rec = recorder {
-            recorder!.stop()
-        }
-
-//        let audioURL = MainVC.getAudioURL(urlStr: urlStr)
-        //        print(audioURL.absoluteString)
-        
-        do {
-//            self.recorder = try AVAudioRecorder(url: audioURL, settings: settings)
-            self.recorder?.delegate = self
-            self.recorder?.prepareToRecord()
-            self.recorder?.record()
-        } catch {
-            self.isOn = false
-            self.finishRecording(success: false)
-        }
-    }
-    
-    @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
-        delegate?.cancelPressed()
-    }
-    
-    @IBAction func savePressed(_ sender: UIBarButtonItem) {
-        let filename = titleField.text
-        delegate?.savePressed(filename: filename!, indexPath: indexPath)
-    }
-    
-//    func finishRecording(success: Bool) {
-//        recorder?.stop()
-//        recorder = nil
-//        url_counter = 0
-//
-//        if success {
-//            //            print("Finished Recording")
-//        } else {
-//            let ac = UIAlertController(title: "Record failed", message: "There was a problem recording your audio; please try again.", preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(ac, animated: true)
-//        }
-//    }
-//
-//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        if !flag {
-//            finishRecording(success: false)
-//        }
-//    }
-    
 }

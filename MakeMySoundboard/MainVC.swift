@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class MainVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var tableData: [Sound] = []
     
@@ -18,6 +21,8 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        fetchSounds()
+        
     }
 
 
@@ -36,6 +41,17 @@ class MainVC: UIViewController {
             dest.filename = tableData[indexPath.row].filename!
         }
     }
+    
+    func fetchSounds() {
+        let request: NSFetchRequest<Sound> = Sound.fetchRequest()
+        
+        do {
+            tableData = try context.fetch(request)
+        } catch {
+            print("\(error)")
+        }
+        
+    }
 }
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
@@ -45,6 +61,10 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         let sound = tableData[indexPath.row]
+//        cell.souLabel.text = sound.text
+//        cell.indexPath = indexPath
+//        cell.delegate = self
+//        return cell
         cell.firstButton.setTitle(sound.filename, for: .normal)
         
         return cell
@@ -59,6 +79,7 @@ extension MainVC: AddDeleteVCDelegate {
     
     func savePressed(filename: String, indexPath: IndexPath?) {
         print("Saved",filename)
+        
         dismiss(animated: true, completion: nil)
     }
 }
