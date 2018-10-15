@@ -32,24 +32,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnV-pG-vDi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="99.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                             <state key="normal" title="Sound1"/>
                                                             <connections>
                                                                 <action selector="firstBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="HoQ-5m-Dd2"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69l-ZS-321">
-                                                            <rect key="frame" x="125" y="0.0" width="125" height="99.5"/>
-                                                            <state key="normal" title="Sound2"/>
-                                                            <connections>
-                                                                <action selector="secondBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="FWn-WK-vo4"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-XO-k2x">
-                                                            <rect key="frame" x="250" y="0.0" width="125" height="99.5"/>
-                                                            <state key="normal" title="Sound3"/>
-                                                            <connections>
-                                                                <action selector="thirdBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="ZcY-wT-00Z"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -64,8 +50,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="firstButton" destination="QnV-pG-vDi" id="42F-tr-cyb"/>
-                                            <outlet property="secondButton" destination="69l-ZS-321" id="oyF-yK-vA7"/>
-                                            <outlet property="thirdButton" destination="K1d-XO-k2x" id="1G7-Ef-8hI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
