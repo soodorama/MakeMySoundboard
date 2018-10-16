@@ -33,6 +33,9 @@
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnV-pG-vDi">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="99.5" id="u2v-xh-cDd"/>
+                                                            </constraints>
                                                             <state key="normal" title="Sound1"/>
                                                             <connections>
                                                                 <action selector="firstBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="HoQ-5m-Dd2"/>

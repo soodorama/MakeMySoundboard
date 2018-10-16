@@ -46,7 +46,6 @@ class AddDeleteVC: UIViewController {
             playButton.setTitle("", for: .normal)
         }
         
-//        session =
         
         do {
             try session.setCategory(.playback, mode: .default)
@@ -107,8 +106,8 @@ class AddDeleteVC: UIViewController {
     }
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
-        let filename = titleField.text
-        delegate?.savePressed(displayname: displayname, indexPath: indexPath)
+        let displayname = titleField.text
+        delegate?.savePressed(displayname: displayname!, indexPath: indexPath)
     }
     
     func finishRecording(success: Bool) {
