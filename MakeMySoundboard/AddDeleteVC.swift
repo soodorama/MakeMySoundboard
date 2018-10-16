@@ -25,6 +25,8 @@ class AddDeleteVC: UIViewController {
     var delegate: AddDeleteVCDelegate?
     var indexPath: IndexPath?
     var displayname = ""
+    var hasSound = false
+    var isDeleted = false
     
     var recorder: AVAudioRecorder?
     var session = AVAudioSession.sharedInstance()
@@ -36,6 +38,8 @@ class AddDeleteVC: UIViewController {
             playButton.backgroundColor = playColor
             playButton.setTitle("Play", for: .normal)
             titleField.text = displayname
+            recordButton.setTitle("Delete", for: .normal)
+            hasSound = true
         }
         else {
             playButton.backgroundColor = .gray
@@ -78,6 +82,21 @@ class AddDeleteVC: UIViewController {
     
     @IBAction func recordBtnPressed(_ sender: UIButton) {
         print("Record")
+        if recordButton.titleLabel?.text == "Record" {
+            recordButton.setTitle("Save", for: .normal)
+            hasSound = true
+            
+        }
+        else if recordButton.titleLabel?.text == "Save" {
+            recordButton.setTitle("Record", for: .normal)
+            isDeleted = false
+            hasSound = true
+        }
+        else if recordButton.titleLabel?.text == "Delete" {
+            isDeleted = true
+            hasSound = false
+        }
+
         // change to delete if it there is already audio
         record()
         
