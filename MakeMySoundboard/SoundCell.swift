@@ -13,7 +13,7 @@ class SoundCell: UITableViewCell {
     @IBOutlet weak var firstButton: UIButton!
     
     @IBAction func firstBtnPressed(_ sender: UIButton) {
-        print("First Button Pressed")
+//        print("First Button Pressed")
     }
     
 }

@@ -11,6 +11,8 @@ import CoreData
 
 class MainVC: UIViewController {
     
+    var cellPos = 0
+    
     @IBOutlet weak var tableView: UITableView!
     
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -75,6 +77,17 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return tableData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell1 = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
+        if tableData.count > 3 {
+            let sound1 = tableData[indexPath.row]
+            let sound1 = tableData[indexPath.row]
+        }
+        else if tableData.count > 2 {
+            
+        }
+        else if tableData.count > 1 {
+            
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         let sound = tableData[indexPath.row]
         cell.firstButton.setTitle(sound.displayname, for: .normal)
