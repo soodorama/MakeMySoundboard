@@ -77,10 +77,14 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return tableData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell1 = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         if tableData.count > 3 {
-            let sound1 = tableData[indexPath.row]
-            let sound1 = tableData[indexPath.row]
+            let sound1 = tableData[indexPath.row].first
+            let sound2 = tableData[indexPath.row].second
+            let sound3 = tableData[indexPath.row].third
+            cell.firstButton.setTitle(sound1.displayname, for: .normal)
+            cell.secondButton.setTitle(sound2.displayname, for: .normal)
+            cell.thirdButton.setTitle(sound3.displayname, for: .normal)
         }
         else if tableData.count > 2 {
             
