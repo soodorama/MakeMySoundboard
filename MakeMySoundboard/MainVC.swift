@@ -37,8 +37,8 @@ class MainVC: UIViewController {
         
         if let indexPath = sender as? IndexPath {
             dest.indexPath = indexPath
-            dest.titleField.text = tableData[indexPath.row].filename!
-            dest.filename = tableData[indexPath.row].filename!
+            dest.titleField.text = tableData[indexPath.row].displayname!
+            dest.displayname = tableData[indexPath.row].displayname!
         }
     }
     
@@ -52,6 +52,19 @@ class MainVC: UIViewController {
         }
         
     }
+    
+    func displayToFilename(_ displayname: String) -> String {
+        var filename = ""
+        for i in displayname {
+            if i == " " {
+                filename += "_"
+            }
+            else {
+                filename += String(i)
+            }
+        }
+        return filename
+    }
 }
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
@@ -61,11 +74,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         let sound = tableData[indexPath.row]
-        //        cell.souLabel.text = sound.text
-        //        cell.indexPath = indexPath
-        //        cell.delegate = self
-        //        return cell
-        cell.firstButton.setTitle(sound.filename, for: .normal)
+        cell.firstButton.setTitle(sound.displayname, for: .normal)
         
         return cell
     }
@@ -77,9 +86,27 @@ extension MainVC: AddDeleteVCDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    func savePressed(filename: String, indexPath: IndexPath?) {
-        print("Saved",filename)
+    func savePressed(displayname: String, indexPath: IndexPath?) {
+        if let indexPath = indexPath {
+            print("update")
+            let sound = tableData[indexPath.row]
+            sound.displayname = displayname
+            sound.filename = displayToFilename(displayname)
+        }
+        else {
+            let sound = Sound(context:context)
+            sound.displayname = displayname
+            sound.filename = displayToFilename(displayname)
+            tableData.append(sound)
+        }
         
+        do {
+            try context.save()
+        } catch {
+            print("\(error)")
+        }
+        
+        print("Saved",displayname)
         dismiss(animated: true, completion: nil)
     }
 }

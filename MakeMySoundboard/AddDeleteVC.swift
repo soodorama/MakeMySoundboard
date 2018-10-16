@@ -11,7 +11,7 @@ import AVFoundation
 
 protocol AddDeleteVCDelegate: class {
     func cancelPressed()
-    func savePressed(filename: String, indexPath: IndexPath?)
+    func savePressed(displayname: String, indexPath: IndexPath?)
 }
 
 class AddDeleteVC: UIViewController {
@@ -24,7 +24,7 @@ class AddDeleteVC: UIViewController {
     
     var delegate: AddDeleteVCDelegate?
     var indexPath: IndexPath?
-    var filename = ""
+    var displayname = ""
     
     var recorder: AVAudioRecorder?
     var session = AVAudioSession.sharedInstance()
@@ -35,6 +35,7 @@ class AddDeleteVC: UIViewController {
         if let indexPath = indexPath {
             playButton.backgroundColor = playColor
             playButton.setTitle("Play", for: .normal)
+            titleField.text = displayname
         }
         else {
             playButton.backgroundColor = .gray
@@ -64,7 +65,7 @@ class AddDeleteVC: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        titleField.text = filename
+        titleField.text = displayname
     }
     
     @IBAction func playBtnPressed(_ sender: UIButton) {
@@ -88,7 +89,7 @@ class AddDeleteVC: UIViewController {
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         let filename = titleField.text
-        delegate?.savePressed(filename: filename!, indexPath: indexPath)
+        delegate?.savePressed(displayname: displayname, indexPath: indexPath)
     }
     
     func finishRecording(success: Bool) {
