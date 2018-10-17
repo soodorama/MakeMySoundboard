@@ -28,6 +28,8 @@ class MainVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         fetchSounds()
         tableView.reloadData()
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 99.5
     }
     
     
