@@ -40,6 +40,10 @@ class MainVC: UIViewController {
         let dest = nav.topViewController as! AddDeleteVC
         dest.delegate = self
         
+        let send = sender as! UIButton
+        if send.tag != 0 {
+            
+        }
         if let indexPath = sender as? IndexPath {
             dest.indexPath = indexPath
             dest.titleField.text = tableData[indexPath.row].displayname!
