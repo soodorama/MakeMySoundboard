@@ -32,13 +32,30 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnV-pG-vDi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="99.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="99.5" id="u2v-xh-cDd"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                             <state key="normal" title="Sound1"/>
                                                             <connections>
                                                                 <action selector="firstBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="HoQ-5m-Dd2"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2Z-rf-YKu">
+                                                            <rect key="frame" x="125" y="0.0" width="125" height="99.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                            <state key="normal" title="Sound2"/>
+                                                            <connections>
+                                                                <action selector="secondBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="vmw-jb-D5V"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqu-Pp-dlG">
+                                                            <rect key="frame" x="250" y="0.0" width="125" height="99.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                            <state key="normal" title="Sound3"/>
+                                                            <connections>
+                                                                <action selector="thirdBtnPressed:" destination="jQ7-HM-42U" eventType="touchUpInside" id="ikb-vS-L9g"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -53,6 +70,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="firstButton" destination="QnV-pG-vDi" id="42F-tr-cyb"/>
+                                            <outlet property="secondButton" destination="P2Z-rf-YKu" id="vzr-56-J7x"/>
+                                            <outlet property="thirdButton" destination="Hqu-Pp-dlG" id="nMq-NU-1LG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
