@@ -11,19 +11,19 @@ import UIKit
 class SoundCell: UITableViewCell {
     
     @IBOutlet weak var firstButton: UIButton!
-    @IBOutlet weak var secondButton: UIButton!
-    @IBOutlet weak var thirdButton: UIButton!
+//    @IBOutlet weak var secondButton: UIButton!
+//    @IBOutlet weak var thirdButton: UIButton!
     
     @IBAction func firstBtnPressed(_ sender: UIButton) {
         print("first button pressed")
     }
-    
-    @IBAction func secondBtnPressed(_ sender: UIButton) {
-        print("second button pressed")
-    }
-    
-    @IBAction func thirdBtnPressed(_ sender: UIButton) {
-        print("third button pressed")
-    }
+//
+//    @IBAction func secondBtnPressed(_ sender: UIButton) {
+//        print("second button pressed")
+//    }
+//
+//    @IBAction func thirdBtnPressed(_ sender: UIButton) {
+//        print("third button pressed")
+//    }
     
 }

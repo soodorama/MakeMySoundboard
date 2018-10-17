@@ -40,10 +40,6 @@ class MainVC: UIViewController {
         let dest = nav.topViewController as! AddDeleteVC
         dest.delegate = self
         
-        let send = sender as! UIButton
-        if send.tag != 0 {
-            
-        }
         if let indexPath = sender as? IndexPath {
             dest.indexPath = indexPath
             dest.titleField.text = tableData[indexPath.row].displayname!
@@ -82,26 +78,57 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
-        if tableData.count > 3 {
-            let sound1 = tableData[indexPath.row].first
-            let sound2 = tableData[indexPath.row].second
-            let sound3 = tableData[indexPath.row].third
-            cell.firstButton.setTitle(sound1.displayname, for: .normal)
-            cell.secondButton.setTitle(sound2.displayname, for: .normal)
-            cell.thirdButton.setTitle(sound3.displayname, for: .normal)
-        }
-        else if tableData.count > 2 {
-            
-        }
-        else if tableData.count > 1 {
-            
-        }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
+//        if tableData.count > 3 {
+//            let sound1 = tableData[indexPath.row].first
+//            let sound2 = tableData[indexPath.row].second
+//            let sound3 = tableData[indexPath.row].third
+//            cell.firstButton.setTitle(sound1.displayname, for: .normal)
+//            cell.secondButton.setTitle(sound2.displayname, for: .normal)
+//            cell.thirdButton.setTitle(sound3.displayname, for: .normal)
+//        }
+//        else if tableData.count > 2 {
+//
+//        }
+//        else if tableData.count > 1 {
+//
+//        }
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         let sound = tableData[indexPath.row]
         cell.firstButton.setTitle(sound.displayname, for: .normal)
         
         return cell
     }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+            self.performSegue(withIdentifier: "AddDeleteSegue", sender: indexPath)
+        }
+        edit.backgroundColor = .green
+        
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            let sound = self.tableData[indexPath.row]
+            self.context.delete(sound)
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("\(error)")
+            }
+            
+            self.tableData.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+        delete.backgroundColor = .red
+        return [delete,edit]
+    }
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+//            print("Delete Action Tapped")
+//        }
+//        deleteAction.backgroundColor = .red
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+//        configuration.performsFirstActionWithFullSwipe = false //HERE..
+//        return configuration
+//    }
 }
 
 extension MainVC: AddDeleteVCDelegate {

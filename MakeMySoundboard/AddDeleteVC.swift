@@ -106,8 +106,10 @@ class AddDeleteVC: UIViewController {
     }
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
-        let displayname = titleField.text
-        delegate?.savePressed(displayname: displayname!, indexPath: indexPath)
+        if (titleField.text != "") {
+            let displayname = titleField.text
+            delegate?.savePressed(displayname: displayname!, indexPath: indexPath)
+        }
     }
     
     func finishRecording(success: Bool) {
