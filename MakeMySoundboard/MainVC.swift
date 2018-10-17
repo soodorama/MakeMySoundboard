@@ -78,24 +78,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
-//        if tableData.count > 3 {
-//            let sound1 = tableData[indexPath.row].first
-//            let sound2 = tableData[indexPath.row].second
-//            let sound3 = tableData[indexPath.row].third
-//            cell.firstButton.setTitle(sound1.displayname, for: .normal)
-//            cell.secondButton.setTitle(sound2.displayname, for: .normal)
-//            cell.thirdButton.setTitle(sound3.displayname, for: .normal)
-//        }
-//        else if tableData.count > 2 {
-//
-//        }
-//        else if tableData.count > 1 {
-//
-//        }
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "SoundCell", for: indexPath) as! SoundCell
         let sound = tableData[indexPath.row]
         cell.firstButton.setTitle(sound.displayname, for: .normal)
-        
         return cell
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
