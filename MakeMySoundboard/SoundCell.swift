@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SoundCell: UITableViewCell {
     
@@ -14,8 +15,30 @@ class SoundCell: UITableViewCell {
 //    @IBOutlet weak var secondButton: UIButton!
 //    @IBOutlet weak var thirdButton: UIButton!
     
+    var player: AVAudioPlayer?
+    var isPlaying: Bool = true
+    
     @IBAction func firstBtnPressed(_ sender: UIButton) {
         print("first button pressed")
+        let name = sender.titleLabel
+        guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            // The following line is required for the player to work on iOS 11. Change the file type accordingly
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            // iOS 10 and earlier require the following line:
+            //            btwPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3)
+            guard let player = player else { return }
+            if isPlaying == true {
+                player.play()
+            }
+            else {
+                player.stop()
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 //
 //    @IBAction func secondBtnPressed(_ sender: UIButton) {
