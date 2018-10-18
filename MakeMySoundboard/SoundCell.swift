@@ -20,10 +20,10 @@ class SoundCell: UITableViewCell {
     
     @IBAction func firstBtnPressed(_ sender: UIButton) {
         print("first button pressed")
-        let name = sender.titleLabel
+        let name = sender.titleLabel?.text
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else { return }
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true)
             // The following line is required for the player to work on iOS 11. Change the file type accordingly
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
