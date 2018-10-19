@@ -20,7 +20,7 @@ class AddDeleteVC: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var titleField: UITextField!
     
-    let playColor = UIColor(red: 39, green: 145, blue: 0, alpha: 1)
+    let playColor = UIColor(red: 63.0/255, green: 140.0/255, blue: 39.0/255, alpha: 1)
     
     var delegate: AddDeleteVCDelegate?
     var indexPath: IndexPath?
@@ -90,6 +90,8 @@ class AddDeleteVC: UIViewController {
             recordButton.setTitle("Record", for: .normal)
             isDeleted = false
             hasSound = true
+            playButton.setTitle("Play", for: .normal)
+            playButton.backgroundColor = playColor
         }
         else if recordButton.titleLabel?.text == "Delete" {
             isDeleted = true
@@ -135,8 +137,6 @@ class AddDeleteVC: UIViewController {
 
 extension AddDeleteVC: AVAudioRecorderDelegate {
     func record() {
-        print("Record")
-        
         if let rec = recorder {
             recorder!.stop()
         }
