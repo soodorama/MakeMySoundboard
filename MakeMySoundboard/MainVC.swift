@@ -139,7 +139,9 @@ extension MainVC: AddDeleteVCDelegate {
         } catch {
             print("\(error)")
         }
-        
+    }
+    
+    func saveDismissedPressed(displayname:String) {
         print("Saved",displayname)
         dismiss(animated: true, completion: nil)
     }

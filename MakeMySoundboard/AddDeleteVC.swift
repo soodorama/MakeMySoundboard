@@ -12,6 +12,7 @@ import AVFoundation
 protocol AddDeleteVCDelegate: class {
     func cancelPressed()
     func savePressed(displayname: String, indexPath: IndexPath?)
+    func saveDismissedPressed(displayname:String)
 }
 
 class AddDeleteVC: UIViewController {
@@ -73,6 +74,8 @@ class AddDeleteVC: UIViewController {
         } catch let error {
             print(error.localizedDescription)
         }
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: Selector("endEditing:")))
     }
     
     
@@ -90,19 +93,13 @@ class AddDeleteVC: UIViewController {
     @IBAction func recordBtnPressed(_ sender: UIButton) {
         if recordButton.titleLabel?.text == "Record" {
             print("Record")
-            recordButton.setTitle("Save", for: .normal)
+            recordButton.setTitle("Stop", for: .normal)
             hasSound = true
             record()
             
         }
-        else if recordButton.titleLabel?.text == "Save" {
-            print("Save")
-            recordButton.setTitle("Record", for: .normal)
-            isDeleted = false
-            hasSound = true
-            playButton.setTitle("Play", for: .normal)
-            playButton.backgroundColor = playColor
-            
+        else if recordButton.titleLabel?.text == "Stop" {
+            stopAndSave()
         }
         else if recordButton.titleLabel?.text == "Delete" {
             print("Delete")
@@ -121,8 +118,23 @@ class AddDeleteVC: UIViewController {
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         if (titleField.text != "") {
             let displayname = titleField.text
-            delegate?.savePressed(displayname: displayname!, indexPath: indexPath)
+            delegate?.saveDismissedPressed(displayname: displayname!)
         }
+        else {
+            let alert = UIAlertController(title: "You must label the sound", message: "OR ELSE", preferredStyle: .alert)
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func stopAndSave() {
+        print("Stop")
+        finishRecording(success: true)
+        recordButton.setTitle("Delete", for: .normal)
+        isDeleted = false
+        hasSound = true
+        playButton.setTitle("Play", for: .normal)
+        playButton.backgroundColor = playColor
+        delegate?.savePressed(displayname: displayname, indexPath: indexPath)
     }
     
     func finishRecording(success: Bool) {
@@ -143,6 +155,7 @@ class AddDeleteVC: UIViewController {
             finishRecording(success: false)
         }
     }
+    
     
 //    @IBAction func offPressed(_ sender: UIButton) {
 //        if isOn {
@@ -195,7 +208,7 @@ class AddDeleteVC: UIViewController {
     
 }
 
-extension AddDeleteVC: AVAudioRecorderDelegate {
+extension AddDeleteVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     func record() {
         if let rec = recorder {
             recorder!.stop()
@@ -227,6 +240,10 @@ extension AddDeleteVC: AVAudioRecorderDelegate {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
+    }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.player?.stop()
+        self.player = nil
     }
 }
 
