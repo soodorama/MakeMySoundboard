@@ -25,6 +25,7 @@ class AddDeleteVC: UIViewController {
     var delegate: AddDeleteVCDelegate?
     var indexPath: IndexPath?
     var displayname = ""
+    var filename = ""
     var hasSound = false
     var isDeleted = false
     
@@ -32,13 +33,21 @@ class AddDeleteVC: UIViewController {
     var session = AVAudioSession.sharedInstance()
     var player: AVAudioPlayer?
     
+    let settings = [
+        AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+        AVSampleRateKey: 44100,
+        AVNumberOfChannelsKey: 1,
+        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let indexPath = indexPath {
             playButton.backgroundColor = playColor
             playButton.setTitle("Play", for: .normal)
-            titleField.text = displayname
+//            titleField.text = displayname
             recordButton.setTitle("Delete", for: .normal)
+//            filename =
             hasSound = true
         }
         else {
@@ -69,37 +78,39 @@ class AddDeleteVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         titleField.text = displayname
+        filename = displayToFilename(displayname)
     }
     
     @IBAction func playBtnPressed(_ sender: UIButton) {
         print("Play")
         // should be gray if no audio, else clover green
         
-        
-        
     }
     
     @IBAction func recordBtnPressed(_ sender: UIButton) {
-        print("Record")
         if recordButton.titleLabel?.text == "Record" {
+            print("Record")
             recordButton.setTitle("Save", for: .normal)
             hasSound = true
+            record()
             
         }
         else if recordButton.titleLabel?.text == "Save" {
+            print("Save")
             recordButton.setTitle("Record", for: .normal)
             isDeleted = false
             hasSound = true
             playButton.setTitle("Play", for: .normal)
             playButton.backgroundColor = playColor
+            
         }
         else if recordButton.titleLabel?.text == "Delete" {
+            print("Delete")
             isDeleted = true
             hasSound = false
         }
         
         // change to delete if it there is already audio
-        record()
         
     }
     
@@ -133,6 +144,55 @@ class AddDeleteVC: UIViewController {
         }
     }
     
+//    @IBAction func offPressed(_ sender: UIButton) {
+//        if isOn {
+//            //            print("Off")
+//            isOn = false
+//            isBeating = false
+//
+//            onButton.backgroundColor = .orange
+//            offButton.backgroundColor = .gray
+//
+//            recordTimer.invalidate()
+//            playTimer.invalidate()
+//
+//            finishRecording(success: true)
+//            globalPlayer?.stop()
+//            beatPlayer?.stop()
+//        }
+//    }
+    
+    func loadRecordingUI() {
+        print("LETS RECORD")
+    }
+    
+    func loadFailUI() {
+        print("FAIL")
+    }
+    
+    class func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    class func getAudioURL(urlStr: String) -> URL {
+        return getDocumentsDirectory().appendingPathComponent(urlStr+".m4a")
+    }
+    
+    func displayToFilename(_ displayname: String) -> String {
+        var filename = ""
+        for i in displayname {
+            if i == " " {
+                filename += "_"
+            }
+            else {
+                filename += String(i)
+            }
+        }
+        return filename
+    }
+    
 }
 
 extension AddDeleteVC: AVAudioRecorderDelegate {
@@ -141,11 +201,10 @@ extension AddDeleteVC: AVAudioRecorderDelegate {
             recorder!.stop()
         }
         
-        //        let audioURL = MainVC.getAudioURL(urlStr: urlStr)
-        //        print(audioURL.absoluteString)
+        let audioURL = AddDeleteVC.getAudioURL(urlStr: filename)
         
         do {
-            //            self.recorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            self.recorder = try AVAudioRecorder(url: audioURL, settings: settings)
             self.recorder?.delegate = self
             self.recorder?.prepareToRecord()
             self.recorder?.record()
