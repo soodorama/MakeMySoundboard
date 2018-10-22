@@ -42,7 +42,6 @@ class MainVC: UIViewController {
         
         if let indexPath = sender as? IndexPath {
             dest.indexPath = indexPath
-//            dest.titleField.text = tableData[indexPath.row].displayname!
             dest.displayname = tableData[indexPath.row].displayname!
         }
     }

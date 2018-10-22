@@ -216,26 +216,17 @@ extension AddDeleteVC: AVAudioRecorderDelegate {
     func play() {
         
         print("Play")
-        //
-        ////        let str = audioQueue.dequeue()
-        ////        let url = AddDeleteVC.getAudioURL(urlStr: str!)
-        //
-        //        do {
-        //            player = try AVAudioPlayer(contentsOf: url)
-        ////            player.play()
-        //            //            print("Playing")
-        //            do {
-        //                try FileManager.default.removeItem(at: url)
-        //            } catch {
-        //                print("error deleting file")
-        //            }
-        //
-        //        } catch {
-        //            //            print("Error with player")
-        //            let ac = UIAlertController(title: "Playback failed", message: "There was a problem", preferredStyle: .alert)
-        //            ac.addAction(UIAlertAction(title: "OK", style: .default))
-        //            //            present(ac, animated: true)
-        //        }
+        
+        let url = AddDeleteVC.getAudioURL(urlStr: filename)
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        } catch {
+            let ac = UIAlertController(title: "Playback failed", message: "There was a problem", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 
