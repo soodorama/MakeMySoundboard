@@ -103,15 +103,15 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         delete.backgroundColor = .red
         return [delete,edit]
     }
-    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    //        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-    //            print("Delete Action Tapped")
-    //        }
-    //        deleteAction.backgroundColor = .red
-    //        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-    //        configuration.performsFirstActionWithFullSwipe = false //HERE..
-    //        return configuration
-    //    }
+        func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+                print("Delete Action Tapped")
+            }
+            deleteAction.backgroundColor = .red
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = false //HERE..
+            return configuration
+        }
 }
 
 extension MainVC: AddDeleteVCDelegate {
